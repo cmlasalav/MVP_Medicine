@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta: App Recordatorio de Medicamentos</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #2196F3;
+            --accent: #FF9800;
+            --light: #f5f5f5;
+            --dark: #333;
+            --gray: #757575;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h3 {
+            color: var(--primary);
+            margin: 20px 0 15px;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background-color: rgba(33, 150, 243, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--light);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(76, 175, 80, 0.05);
+        }
+        
+        .phase-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .phase-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .phase {
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .phase1 {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .phase2 {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .phase-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Propuesta: App Recordatorio de Medicamentos</h1>
+        <p class="subtitle">Resumen ejecutivo para compartir con asociados</p>
+    </header>
+    
+    <section>
+        <h2>📋 Descripción General</h2>
+        <p>Esta propuesta describe el desarrollo de una aplicación web con recordatorios vía SMS para ayudar a las personas a seguir sus tratamientos médicos. El sistema incluye registro de usuarios, gestión de medicamentos, recordatorios programados y confirmación de toma.</p>
+        
+        <div class="highlight">
+            <strong>💡 Objetivo principal:</strong> Desarrollar una solución accesible que mejore la adherencia a tratamientos médicos mediante recordatorios oportunos a través de SMS.
+        </div>
+    </section>
+    
+    <section>
+        <h2>💰 Estimación de Costos y Tiempo</h2>
+        
+        <h3>Desarrollo - Fase 1 (Web + SMS)</h3>
+        <table>
+            <tr>
+                <th>Concepto</th>
+                <th>Costo Estimado (USD)</th>
+                <th>Tiempo Estimado</th>
+            </tr>
+            <tr>
+                <td>Desarrollo (equipo 2-3 personas)</td>
+                <td>$25,000 - $45,000</td>
+                <td>10-12 semanas</td>
+            </tr>
+            <tr>
+                <td>Infraestructura y hosting (primer año)</td>
+                <td>$1,500 - $3,000</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Servicio de SMS (Twilio)</td>
+                <td>$500 - $2,000</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Diseño UX/UI</td>
+                <td>$2,000 - $4,000</td>
+                <td>2-3 semanas</td>
+            </tr>
+            <tr>
+                <td>Gestión de proyecto</td>
+                <td>$3,000 - $5,000</td>
+                <td>14-17 semanas</td>
+            </tr>
+            <tr>
+                <th>Total Estimado</th>
+                <th><strong>$36,500 - $67,000</strong></th>
+                <th><strong>14-17 semanas</strong></th>
+            </tr>
+        </table>
+        
+        <h3>Costos Recurrentes Mensuales/Anuales</h3>
+        <ul>
+            <li><strong>Hosting y infraestructura:</strong> $100 - $300/mes</li>
+            <li><strong>Servicio de SMS (Twilio):</strong> Varía según uso (~$0.01-0.05 por SMS)</li>
+            <li><strong>Mantenimiento y soporte:</strong> $500 - $1,000/mes</li>
+            <li><strong>Dominio y certificados SSL:</strong> $50 - $100/año</li>
+        </ul>
+    </section>
+    
+    <section>
+        <h2>🚀 Alcance por Fases</h2>
+        
+        <div class="phase-comparison">
+            <div class="phase phase1">
+                <div class="phase-title">✅ Fase 1 (Inicial)</div>
+                <ul>
+                    <li>Registro web de usuarios</li>
+                    <li>Gestión de medicamentos y horarios</li>
+                    <li>Recordatorios por SMS (15, 10, 5 min antes)</li>
+                    <li>Confirmación de toma vía web</li>
+                    <li>Panel de usuario básico</li>
+                    <li>Base de datos segura</li>
+                </ul>
+            </div>
+            
+            <div class="phase phase2">
+                <div class="phase-title">🔜 Fase 2 (Futura)</div>
+                <ul>
+                    <li>App móvil nativa (iOS/Android)</li>
+                    <li>Integración con WhatsApp</li>
+                    <li>Panel para familiares/cuidadores</li>
+                    <li>Reportes avanzados y estadísticas</li>
+                    <li>Base de datos de medicamentos</li>
+                    <li>Integración con servicios de salud</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <h2>🎯 Próximos Pasos Recomendados</h2>
+        <ol>
+            <li>Validar el concepto con potenciales usuarios</li>
+            <li>Crear un prototipo de alta fidelidad</li>
+            <li>Seleccionar proveedor de servicios SMS (Twilio recomendado)</li>
+            <li>Definir stack tecnológico específico</li>
+            <li>Elaborar plan de desarrollo detallado</li>
+            <li>Establecer métricas de éxito</li>
+        </ol>
+    </section>
+    
+    <div class="action-buttons">
+        <button class="btn" onclick="window.print()">
+            🖨️ Imprimir Propuesta
+        </button>
+        <a href="mailto:?subject=Propuesta%20App%20Recordatorio%20Medicamentos&body=Hola,%20te%20comparto%20esta%20propuesta%20para%20una%20aplicación%20de%20recordatorio%20de%20medicamentos%20vía%20SMS." class="btn btn-primary">
+            📧 Enviar por Email
+        </a>
+    </div>
+    
+    <footer>
+        <p>Documento generado el <span id="current-date"></span> | Para discusión con asociados</p>
+    </footer>
+
+    <script>
+        // Fecha actual
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('es-ES', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Función para descargar como PDF
+        function downloadPDF() {
+            alert("Para generar PDF: imprima esta página y seleccione 'Guardar como PDF' en las opciones de impresión.");
+        }
+    </script>
+</body>
+</html>

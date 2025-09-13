@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcance de la Aplicación - Fase 1 vs Fase 2</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #2196F3;
+            --accent: #FF9800;
+            --light: #f5f5f5;
+            --dark: #333;
+            --gray: #757575;
+            --phase1: #4CAF50;
+            --phase2: #2196F3;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 900px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .phase {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .phase-header {
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .phase1 .phase-header {
+            border-color: var(--phase1);
+            color: var(--phase1);
+        }
+        
+        .phase2 .phase-header {
+            border-color: var(--phase2);
+            color: var(--phase2);
+        }
+        
+        .phase-icon {
+            font-size: 2rem;
+        }
+        
+        .phase-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .phase-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+        }
+        
+        .feature-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.2s;
+        }
+        
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .phase1 .feature-item {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--phase1);
+        }
+        
+        .phase2 .feature-item {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--phase2);
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-text {
+            flex-grow: 1;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .timeline {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+        
+        .timeline-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
+            text-align: center;
+        }
+        
+        .timeline-container {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--phase1), var(--phase2));
+            z-index: 1;
+        }
+        
+        .timeline-phase {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            width: 30%;
+        }
+        
+        .timeline-node {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+            border: 4px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+        }
+        
+        .timeline-phase:nth-child(1) .timeline-node {
+            border-color: var(--phase1);
+            color: var(--phase1);
+        }
+        
+        .timeline-phase:nth-child(2) .timeline-node {
+            border-color: var(--phase2);
+            color: var(--phase2);
+        }
+        
+        .timeline-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .recommendations {
+            background-color: #E8F5E9;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .recommendations-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .recommendation-item {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .recommendation-item::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Alcance de la Aplicación</h1>
+            <p class="subtitle">Fase 1 vs Fase 2 - Plan de Desarrollo</p>
+        </header>
+        
+        <div class="comparison">
+            <div class="phase phase1">
+                <div class="phase-header">
+                    <div class="phase-icon">🚀</div>
+                    <div>
+                        <div class="phase-title">Fase 1</div>
+                        <div class="phase-subtitle">Versión Inicial (3-4 meses)</div>
+                    </div>
+                </div>
+                
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <div class="feature-icon">📋</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Registro Web de Usuarios</div>
+                            <div class="feature-desc">Formulario de registro con datos básicos</div>
+                        </div>
+                    </li>
+                    
+                    <li class="feature-item">
+                        <div class="feature-icon">💊</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Gestión de Medicamentos</div>
+                            <div class="feature-desc">Añadir, editar y eliminar medicamentos con horarios</div>
+                        </div>
+                    </li>
+                    
+                    <li class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Recordatorios por SMS</div>
+                            <div class="feature-desc">Alertas a 15, 10 y 5 minutos vía Twilio</div>
+                        </div>
+                    </li>
+                    
+                    <li class="feature-item">
+                        <div class="feature-icon">✅</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Confirmación de Toma</div>
+                            <div class="feature-desc">Registro web de medicamentos tomados</div>
+                        </div>
+                    </li>
+                    
+                    <li class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Panel de Usuario Básico</div>
+                            <div class="feature-desc">Vista de medicamentos y próximos recordatorios</div>
+                        </div>
+                    </li>
+                    
+                    <li class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Seguridad Básica</div>
+                            <div class="feature-desc">Autenticación y cifrado de datos sensibles</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="phase phase2">
+                <div class="phase-header">
+                    <div class="phase-icon">✨</div>
+                    <div>
+                        <div class="phase-title">Fase 2</div>
+                        <div class="phase-subtitle">Funcionalidades Futuras</div>
+                    </div>
+                </div>
+                
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <div class="feature-icon">📲</div>
+                        <div class="feature-text">
+                            <div class="feature-title">App Móvil Nativa</div>
+                            <div class="feature-desc">Apps iOS y Android con notificaciones push</div>
+                        </div>
+                    </li>
+                    
+                    <li class="feature-item">
+                        <div class="feature-icon">💬</div>
+                        <div class="feature-text">
+                            <div class="feature-title">WhatsApp Integration</div>
+                            <div class="feature-desc">Recordatorios mediante WhatsApp Business API</div>
+                        </div>
+                    </li>
+                    
+                    <li class="feature-item">
+                        <div class="feature-icon">👨‍👩‍👧</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Panel para Familiares</div>
+                            <div class="feature-desc">Supervisión para cuidadores y familiares</div>
+                        </div>
+                    </li>
+                    
+                    <li class="feature-item">
+                        <div class="feature-icon">📈</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Reportes Avanzados</div>
+                            <div class="feature-desc">Gráficos de adherencia y exportación de datos</div>
+                        </div>
+                    </li>
+                    
+                    <li class="feature-item">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Integración con Servicios de Salud</div>
+                            <div class="feature-desc">Conexión con historiales médicos electrónicos</div>
+                        </div>
+                    </li>
+                    
+                    <li class="feature-item">
+                        <div class="feature-icon">🌎</div>
+                        <div class="feature-text">
+                            <div class="feature-title">Soporte Multiidioma</div>
+                            <div class="feature-desc">Español, inglés, portugués y más</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="timeline">
+            <h2 class="timeline-title">Cronología de Desarrollo</h2>
+            
+            <div class="timeline-container">
+                <div class="timeline-phase">
+                    <div class="timeline-node">1</div>
+                    <div class="timeline-label">Fase 1 (3-4 meses)</div>
+                    <div class="timeline-desc">Versión web con SMS</div>
+                </div>
+                
+                <div class="timeline-phase">
+                    <div class="timeline-node">2</div>
+                    <div class="timeline-label">Fase 2 (4-6 meses)</div>
+                    <div class="timeline-desc">Funcionalidades avanzadas</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="recommendations">
+            <h2 class="recommendations-title">💡 Recomendaciones para la Fase 1</h2>
+            
+            <div class="recommendation-item">Enfócate en la usabilidad básica y la confiabilidad de los recordatorios</div>
+            <div class="recommendation-item">Implementa un sistema de feedback para conocer las necesidades de los usuarios</div>
+            <div class="recommendation-item">Diseña la arquitectura de forma escalable para facilitar la Fase 2</div>
+            <div class="recommendation-item">Realiza pruebas con un grupo pequeño de usuarios antes del lanzamiento general</div>
+            <div class="recommendation-item">Prioriza las funciones esenciales y pospone las "nice-to-have" para la Fase 2</div>
+        </div>
+        
+        <footer>
+            <p>Plan de desarrollo para aplicación de recordatorio de medicamentos</p>
+            <p>Fase 1: Web + SMS | Fase 2: App nativa + WhatsApp + funcionalidades avanzadas</p>
+        </footer>
+    </div>
+</body>
+</html>

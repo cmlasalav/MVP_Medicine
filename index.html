@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediRecord - Recordatorio de Medicamentos</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #2196F3;
+            --accent: #FF9800;
+            --light: #f5f5f5;
+            --dark: #333;
+            --gray: #757575;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f8ff;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid white;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+        
+        .nav-item {
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.2s;
+        }
+        
+        .nav-item.active {
+            background-color: var(--light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .nav-item:hover {
+            background-color: var(--light);
+        }
+        
+        .main-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .medicines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .medicine-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .medicine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .medicine-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .medicine-details {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .medicine-time {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--light);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        
+        .time-text {
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-upcoming {
+            background-color: #FFF8E1;
+            color: #FFA000;
+        }
+        
+        .status-taken {
+            background-color: #E8F5E9;
+            color: var(--primary);
+        }
+        
+        .status-missed {
+            background-color: #FFEBEE;
+            color: #F44336;
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-confirm {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-confirm:hover {
+            background-color: #3d8b40;
+        }
+        
+        .upcoming-reminders {
+            background-color: #E3F2FD;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .reminder-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .reminder-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #BBDEFB;
+        }
+        
+        .reminder-item:last-child {
+            border-bottom: none;
+        }
+        
+        .reminder-medicine {
+            font-weight: 600;
+        }
+        
+        .reminder-time {
+            color: var(--gray);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 900px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .user-actions {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .medicines-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">💊</div>
+                <h1>MediRecord</h1>
+            </div>
+            <div class="user-actions">
+                <button class="btn btn-outline">Mi Perfil</button>
+                <button class="btn">Cerrar Sesión</button>
+            </div>
+        </header>
+        
+        <div class="dashboard">
+            <div class="sidebar">
+                <div class="nav-item active">
+                    <span>📋</span> Mis Medicamentos
+                </div>
+                <div class="nav-item">
+                    <span>⏰</span> Recordatorios
+                </div>
+                <div class="nav-item">
+                    <span>📊</span> Historial
+                </div>
+                <div class="nav-item">
+                    <span>📱</span> Configuración SMS
+                </div>
+                <div class="nav-item">
+                    <span>❓</span> Ayuda
+                </div>
+            </div>
+            
+            <div class="main-content">
+                <div class="section-title">
+                    <span>💊</span> Mis Medicamentos
+                </div>
+                
+                <div class="medicines-grid">
+                    <div class="medicine-card">
+                        <div class="medicine-name">Paracetamol 500mg</div>
+                        <div class="medicine-details">
+                            Dosis: 1 tableta<br>
+                            Cada 8 horas<br>
+                            Comida: Después de alimentos
+                        </div>
+                        <div class="medicine-time">
+                            <div class="time-text">Próxima dosis:</div>
+                            <div class="time">14:30</div>
+                        </div>
+                        <div class="status-badge status-upcoming">En 15 minutos</div>
+                        <button class="action-btn btn-confirm">Confirmar toma</button>
+                    </div>
+                    
+                    <div class="medicine-card">
+                        <div class="medicine-name">Loratadina 10mg</div>
+                        <div class="medicine-details">
+                            Dosis: 1 tableta<br>
+                            Una vez al día<br>
+                            Comida: Con agua
+                        </div>
+                        <div class="medicine-time">
+                            <div class="time-text">Próxima dosis:</div>
+                            <div class="time">20:00</div>
+                        </div>
+                        <div class="status-badge status-upcoming">En 5 horas</div>
+                        <button class="action-btn btn-confirm">Confirmar toma</button>
+                    </div>
+                    
+                    <div class="medicine-card">
+                        <div class="medicine-name">Omeprazol 20mg</div>
+                        <div class="medicine-details">
+                            Dosis: 1 cápsula<br>
+                            Cada 24 horas<br>
+                            Comida: Antes de alimentos
+                        </div>
+                        <div class="medicine-time">
+                            <div class="time-text">Última dosis:</div>
+                            <div class="time">08:00</div>
+                        </div>
+                        <div class="status-badge status-taken">Tomada</div>
+                        <button class="action-btn" disabled>Confirmar toma</button>
+                    </div>
+                </div>
+                
+                <div class="upcoming-reminders">
+                    <div class="reminder-title">
+                        <span>⏰</span> Próximos Recordatorios
+                    </div>
+                    
+                    <div class="reminder-item">
+                        <div class="reminder-info">
+                            <div class="reminder-medicine">Paracetamol 500mg</div>
+                            <div class="reminder-detail">1 tableta - Después de alimentos</div>
+                        </div>
+                        <div class="reminder-time">14:30</div>
+                    </div>
+                    
+                    <div class="reminder-item">
+                        <div class="reminder-info">
+                            <div class="reminder-medicine">Loratadina 10mg</div>
+                            <div class="reminder-detail">1 tableta - Con agua</div>
+                        </div>
+                        <div class="reminder-time">20:00</div>
+                    </div>
+                    
+                    <div class="reminder-item">
+                        <div class="reminder-info">
+                            <div class="reminder-medicine">Omeprazol 20mg</div>
+                            <div class="reminder-detail">1 cápsula - Antes de alimentos</div>
+                        </div>
+                        <div class="reminder-time">08:00 (mañana)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>MediRecord &copy; 2023 - Recordatorio de medicamentos vía SMS</p>
+            <p>Nunca más olvides tomar tu medicina</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simulación de funcionalidad básica
+        document.querySelectorAll('.btn-confirm').forEach(button => {
+            button.addEventListener('click', function() {
+                const medicineCard = this.closest('.medicine-card');
+                const statusBadge = medicineCard.querySelector('.status-badge');
+                const timeText = medicineCard.querySelector('.time-text');
+                
+                statusBadge.textContent = 'Tomada';
+                statusBadge.className = 'status-badge status-taken';
+                timeText.textContent = 'Última dosis:';
+                this.disabled = true;
+                this.textContent = 'Confirmada';
+                
+                // Simular notificación
+                alert('¡Toma confirmada correctamente! Se ha registrado en tu historial.');
+            });
+        });
+    </script>
+</body>
+</html>
